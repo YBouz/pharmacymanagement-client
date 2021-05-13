@@ -1,0 +1,30 @@
+<!-- Pharmacies container -->
+<div class="container" id="items-container">
+    <div>
+        <h1 class="ml-2">Pharmacy Detail</h1>
+    </div>
+
+    <form class="form-inline ml-2 my-2 my-lg-0">
+        <input type="search" (ngModelChange)="searchItems(key.value)" #key="ngModel" ngModel name="key"
+            id="searchItems" class="form-control mr-sm-2" placeholder="Search items..." required>
+    </form> <br>
+
+    <div class="row">
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items">
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>

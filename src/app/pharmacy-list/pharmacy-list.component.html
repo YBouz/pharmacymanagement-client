@@ -1,0 +1,148 @@
+<!-- Pharmacies container -->
+<div class="container" id="pharmacies-container">
+    <div>
+        <h1 class="ml-2">Pharmacies
+            <a class="btn btn-outline-primary btn-sm" (click)="onOpenPharmacyModal(null, 'add')">Add Pharmacy <span
+                    class="sr-only">(current)</span></a>
+        </h1>
+    </div>
+
+    <form class="form-inline ml-2 my-2 my-lg-0">
+        <input type="search" (ngModelChange)="searchPharmacies(key.value)" #key="ngModel" ngModel name="key"
+            id="searchPharmacies" class="form-control mr-sm-2" placeholder="Search pharmacies..." required>
+    </form> <br>
+
+    <div class="row">
+        <div *ngFor="let pharmacy of pharmacies" class="col-md-6 col-xl-4">
+            <div class="card m-b-30">
+                <a routerLink="/pharmacies/detail">
+                    <div class="card-body row">
+                        <div class="col-12 card-title align-self-center mb-0">
+                            <h5>{{pharmacy?.name}}</h5>
+                            <p>{{pharmacy?.address}}</p>
+                        </div>
+                    </div>
+                </a>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="mailto:{{pharmacy?.email}}"><i class="fa fa-envelope mr-2"></i>{{pharmacy?.email}}</a></li>
+                </ul>
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                        <a (click)="onOpenPharmacyModal(pharmacy, 'edit')" class="btn btn-primary tooltips"
+                            data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a (click)="onOpenPharmacyModal(pharmacy, 'delete')" class="btn btn-secondary tooltips"
+                            data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Pharmacy Modal -->
+<div class="modal fade" id="addPharmacyModal" tabindex="-1" role="dialog" aria-labelledby="addPharmacyModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPharmacyModalLabel">Add Pharmacy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddPharmacy(addForm)">
+                    <div class="form-group">
+                        <label for="name">Pharmacy Name</label>
+                        <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Pharmacy Email Address</label>
+                        <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Pharmacy Address</label>
+                        <input type="text" ngModel name="address" class="form-control" id="address" placeholder="Address"
+                            required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="add-pharmacy-form" class="btn btn-secondary"
+                            data-dismiss="modal">Close</button>
+                        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Pharmacy Modal -->
+<div class="modal fade" id="updatePharmacyModal" tabindex="-1" role="dialog" aria-labelledby="pharmacyEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatePharmacyModalLabel">Edit Pharmacy {{editPharmacy?.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #editForm="ngForm">
+                    <div class="form-group">
+                        <label for="name">Pharmacy Name</label>
+                        <input type="text" ngModel="{{editPharmacy?.name}}" name="name" class="form-control" id="name"
+                            aria-describedby="emailHelp" placeholder="Name">
+                    </div>
+                    <input type="hidden" ngModel="{{editPharmacy?.id}}" name="id" class="form-control" id="id"
+                        placeholder="Email">
+
+                    <div class="form-group">
+                        <label for="email">Pharmacy Email Address</label>
+                        <input type="email" ngModel="{{editPharmacy?.email}}" name="email" class="form-control"
+                            id="email" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Pharmacy Address</label>
+                        <input type="text" ngModel="{{editPharmacy?.address}}" name="address" class="form-control"
+                            id="address" placeholder="Address">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button (click)="onUpdatePharmacy(editForm.value)" data-dismiss="modal"
+                            class="btn btn-primary">Save
+                            changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Pharmacy Modal -->
+<div class="modal fade" id="deletePharmacyModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Delete Pharmacy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete pharmacy {{deletePharmacy?.name}}?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="onDeletePharmacy(deletePharmacy?.id)" class="btn btn-danger"
+                        data-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

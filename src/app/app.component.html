@@ -1,0 +1,30 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a href="/" class="navbar-brand" style="color:white;">Pharmacy Management</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a routerLink="/customers" class="nav-link">Customers</a>
+      </li>
+
+      <li class="nav-item">
+        <a routerLink="/pharmacies" class="nav-link">Pharmacy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Pharmacy Management</h1>
+    <p>CMP404 Pharmacy Management - Demo Project</p>
+    <p>RESTful API built with Springboot, JPA, and MySQL. <br> Front-end client built with AngularJS.</p>
+    <p>Made with &hearts; by Rashed Al Nuaimi, <a href="https://bouz.me" style="color: rgb(0, 132, 255);">Youssef Bouz</a> & Zayed Al Hosani</p>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
