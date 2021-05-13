@@ -18,4 +18,8 @@ export class ItemService {
   public getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.itemsUrl}`);
   }
+
+  public deleteItem(itemId: number): Observable<void> {
+    return this.http.delete<void>(`${this.itemsUrl}/${itemId}`);
+  }
 }

@@ -11,8 +11,10 @@ import { ItemService } from '../item.service';
 export class PharmacyDetailComponent implements OnInit {
 
   public items: Item[] = [];
+  public deleteItem: Item;
 
-  constructor(private pharmacyService: ItemService) { }
+
+  constructor(private itemService: ItemService) { }
 
   ngOnInit() {
     this.getItems();
@@ -20,10 +22,22 @@ export class PharmacyDetailComponent implements OnInit {
 
   // Item ----------------------------------------------->
   public getItems(): void {
-    this.pharmacyService.getItems().subscribe(
+    this.itemService.getItems().subscribe(
       (response: Item[]) => {
         this.items = response;
         console.log(this.items);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onDeleteItem(itemId: number): void {
+    this.itemService.deleteItem(itemId).subscribe(
+      (response: void) => {
+        console.log(response);
+        this.getItems();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -44,6 +58,22 @@ export class PharmacyDetailComponent implements OnInit {
     if (results.length === 0 || !key) {
       this.getItems();
     }
+  }
+
+  public onOpenItemModal(item: Item, mode: string): void {
+    const container = document.getElementById('items-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
+    if (mode === 'delete') {
+      this.deleteItem = item;
+      button.setAttribute('data-target', '#deleteItemModal');
+    }
+
+    container?.appendChild(button);
+    button.click();
   }
 
 }
