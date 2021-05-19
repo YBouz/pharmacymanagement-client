@@ -11,7 +11,7 @@ export class CustomerService {
   private customerUrl: string;
 
   constructor(private http: HttpClient) {
-    this.customerUrl = 'http://localhost:8080/api/customer';
+    this.customerUrl = 'http://404project-env.eba-5r9as5pq.us-east-1.elasticbeanstalk.com/api/customer';
   }
 
   public getCustomers(): Observable<Customer[]> {

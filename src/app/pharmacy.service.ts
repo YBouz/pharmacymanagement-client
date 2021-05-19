@@ -11,7 +11,7 @@ export class PharmacyService {
   private pharmacyUrl: string;
 
   constructor(private http: HttpClient) {
-    this.pharmacyUrl = 'http://localhost:8080/api/pharmacy';
+    this.pharmacyUrl = 'http://404project-env.eba-5r9as5pq.us-east-1.elasticbeanstalk.com/api/pharmacy';
   }
 
   public getPharmacies(): Observable<Pharmacy[]> {

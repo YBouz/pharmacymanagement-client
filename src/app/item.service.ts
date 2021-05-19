@@ -8,11 +8,10 @@ import { Item } from './item';
 })
 export class ItemService {
 
-  private pharmacyId: number;
   private itemsUrl: string;
 
   constructor(private http: HttpClient) {
-    this.itemsUrl = `http://localhost:8080/api/item`;
+    this.itemsUrl = `http://404project-env.eba-5r9as5pq.us-east-1.elasticbeanstalk.com/api/item`;
   }
 
   public getItems(): Observable<Item[]> {
